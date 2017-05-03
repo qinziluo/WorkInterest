@@ -11,7 +11,7 @@ var parameters = {
     fromage:"<required>",
     highlight:"<required>",
     jt: "<required>",
-    l: "cambridge%2C+ma",
+    l: "Philadelphia%2C+PA",
     latlong: "<required>",
     limit: 25,
     q:"",
@@ -45,7 +45,7 @@ var request_data = function(parameters){
     fs.writeFile("data/jobData" + "_" + l + ".json", empty);
     var joblist = [];
 
-    for (var i = 0; i < 1000; i++){
+    for (var i = 0; i < 600; i++){
         parameters.start += 25;
         parameters.limit += 25;
         var url = join_para(parameters);
@@ -53,19 +53,21 @@ var request_data = function(parameters){
         .header("X-Mashape-Key", "UVlf4guEQ7mshf0ylS9SRPRuXMXFp1Xyvwfjsn7f8yPXmrqLxb")
         .header("Accept", "application/json")
         .end(function(result){
+            // console.log(url);
             // console.log(result.body);
             var data_body = result.body;
             var key = "results";
             // console.log(data_body[key]);
-            joblist = joblist.concat(data_body[key]);                                              
+            joblist = joblist.concat(data_body[key]);   
+            // console.log(joblist);                                           
         });
     } 
     //Callback will cause headache 
-    var location = parameters.l;
-    setTimeout(function(){fs.appendFile("data/jobData" + "_" + l + ".json", JSON.stringify(joblist))}, 10000); 
+    
+    setTimeout(function(){fs.appendFile("data/jobData" + "_" + l + ".json", JSON.stringify(joblist))}, 300000); 
 };
 
-// request_data(parameters);
+request_data(parameters);
 
 
 var request_data_cities = function(parameters){
@@ -74,20 +76,11 @@ var request_data_cities = function(parameters){
     for (var i = 0; i< city_length; i++){
         var city = cities[i];
         parameters.l = city;
-        request_data(parameters); 
+        setTimeout(function(){request_data(parameters);}, 2000);      
     }
 }; 
 
 
 //Request data from different cities
-request_data_cities(parameters); 
+// request_data_cities(parameters); 
 
-
-// unirest.get("https://indeed-indeed.p.mashape.com/apisearch?publisher=4665604319447589&callback=<required>&chnl=<required>&co=<required>&filter=<required>&format=json&fromage=<required>&highlight=<required>&jt=<required>&l=cambridge%2C+ma&latlong=<required>&limit=25&q=&radius=25&sort=<required>&st=<required>&start=<required>&useragent=<required>&userip=<required>&v=2")
-// .header("X-Mashape-Key", "UVlf4guEQ7mshf0ylS9SRPRuXMXFp1Xyvwfjsn7f8yPXmrqLxb")
-// .header("Accept", "application/json")
-// .end(function (result) {
-// //   console.log(result.status, result.headers, result.body);
-//   var data = fs.writeFileSync("0501data.js", JSON.stringify(result));
-//   return data
-// });

@@ -1,0 +1,150 @@
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="sortedjobdata.js"></script>
+<script src="sortedcompanydata.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', { packages: ['corechart', 'bar'] });
+    google.charts.setOnLoadCallback(drawBasicjob);
+    google.charts.setOnLoadCallback(drawBasiccompany);
+    sortedjobdata = sortedjobdata.slice(0, 19);
+    sortedcompanydata = sortedcompanydata.slice(0, 19);
+
+
+    function drawBasicjob() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Task');
+        data.addColumn('number', 'frequency');
+        data.addRows(sortedjobdata);
+
+        var options = {
+            backgroundColor: '#F0FFF0',
+            title: 'Key words of employment in Boston',
+            titleTextStyle: {
+                //color: <string>,    // any HTML string color ('red', '#cc00cc')
+                //fontName: 'Times New Roman', // 
+                fontSize: 8,  //12, 18 whatever you want (don't specify px)
+                bold: true,    // true or false
+                //italic: true   // true of false
+            },
+            //titlePosition: 'none',
+            width: 240,
+            height: 200,
+            hAxis: {
+                title: 'Total number',
+                titleTextStyle: {
+                    //color: <string>,    // any HTML string color ('red', '#cc00cc')
+                    //fontName: 'Times New Roman', // 
+                    fontSize: 6,  //12, 18 whatever you want (don't specify px)
+                    bold: true,    // true or false
+                    //italic: true   // true of false
+                },
+                minValue: 0,
+                textStyle: {
+                    color: 'black',
+                    fontSize: 6
+                },
+                gridlines: { color: '#C0C0C0', count: 4, fontSize: 4 }
+            },
+
+
+            vAxis: {
+                title: 'Key words',
+                titleTextStyle: {
+                    //color: <string>,    // any HTML string color ('red', '#cc00cc')
+                    //fontName: 'Times New Roman', // 
+                    fontSize: 6,  //12, 18 whatever you want (don't specify px)
+                    bold: true,    // true or false
+                    //italic: true   // true of false
+                },
+                textStyle: {
+                    color: 'black',
+                    fontSize: 4
+                },
+            },
+            
+            colors: ['#F3A2E6'],
+            legend: { position: "none" },
+        };
+
+        var chart = new google.visualization.BarChart(document.getElementById('jobtitle_chart_div'));
+        console.log('hi')
+        chart.draw(data, options);
+    }
+
+    function drawBasiccompany() {
+
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Task');
+        data.addColumn('number', 'frequency');
+        data.addRows(sortedcompanydata);
+
+        var options = {
+            backgroundColor: '#F0FFF0',
+            title: 'Popular companies in Boston',
+            titleTextStyle: {
+                //color: <string>,    // any HTML string color ('red', '#cc00cc')
+                //fontName: 'Times New Roman', // 
+                fontSize: 8,  //12, 18 whatever you want (don't specify px)
+                bold: true,    // true or false
+                //italic: true   // true of false
+            },
+        
+            width: 240,
+            height: 200,
+            hAxis: {
+                title: 'Total number',
+                titleTextStyle: {
+                    //color: <string>,    // any HTML string color ('red', '#cc00cc')
+                    //fontName: 'Times New Roman', // 
+                    fontSize: 6,  //12, 18 whatever you want (don't specify px)
+                    bold: true,    // true or false
+                    //italic: true   // true of false
+                },
+
+                textStyle: {
+                    color: 'black',
+                    fontSize: 6
+                },
+                gridlines: { color: '#C0C0C0', count: 4, fontSize: 4 }
+            },
+
+
+            vAxis: {
+                title: 'Company names',
+                titleTextStyle: {
+                    //color: <string>,    // any HTML string color ('red', '#cc00cc')
+                    //fontName: 'Times New Roman', // 
+                    fontSize: 6,  //12, 18 whatever you want (don't specify px)
+                    bold: true,    // true or false
+                    //italic: true   // true of false
+                },
+                textStyle: {
+                    color: 'black',
+                    fontSize: 4
+                },
+            },
+            colors: ['#F3A2E6'],
+            legend: { position: "none" },
+        };
+
+        var chart = new google.visualization.BarChart(document.getElementById('company_chart_div'));
+        console.log('hi')
+        chart.draw(data, options);
+    }
+
+</script>
+
+<body style="background:rgba(240,255,240,1);">
+</body>
+
+<body>
+    <table class="columns">
+        <tr>
+            <td>
+                <div id="jobtitle_chart_div" style="border: 1px solid #ccc"></div>
+            </td>
+            <td>
+                <div id="company_chart_div" style="border: 1px solid #ccc"></div>
+            </td>
+        </tr>
+    </table>
+</body>
